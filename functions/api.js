@@ -29,13 +29,44 @@ router.post("/", (req, res) => {
 
   let transporter = nodemailer.createTransport(config);
 
-  transporter
-  .sendMail({
+  let message = {
     from: process.env.EMAIL,
-    to: process.env.EMAIL,
-    subject: `Message from ${userName} (${userEmail})`,
-    text: userMessage
-  })
+    to: `${userEmail}`,
+    bcc: process.env.EMAIL,
+    subject: `Thank you for your message via my portfolio site`,
+    text: `
+    Hi ${userName},
+    
+    This is an automated message from Maria Panagos just letting you know I have recieved your message via my portfolio site! Here's what you wrote:
+
+        "${userMessage}"
+
+    I usually reply within 1-2 business days. Looking forward to connecting!
+
+    Thank you,
+    Maria
+    `,
+    html: `
+      <p>
+        Hi ${userName},
+        <br />
+        <br />
+        This is an automated message from Maria Panagos just letting you know I
+        have recieved your message via my portfolio site! Here's what you wrote:
+        <br />
+        <br />
+        "${userMessage}"
+        <br />
+        <br />
+        I usually reply within 1-2 business days. Looking forward to connecting!
+        <br />
+        Thank you, Maria
+      </p>
+    `
+  };
+
+  transporter
+  .sendMail(message)
   .then(() => {
     return res.status(201).json({
         msg: "Nodemailer has sent the message"
