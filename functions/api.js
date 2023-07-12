@@ -2,7 +2,7 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const nodemailer = require("nodemailer");
-const { EMAIL, PASSWORD } = require('./env.js')
+// const { EMAIL, PASSWORD } = require('./env.js')
 
 const app = express();
 const router = express.Router();
@@ -22,8 +22,8 @@ router.post("/", (req, res) => {
   let config = {
     service: "gmail",
     auth: {
-      user: EMAIL,
-      pass: PASSWORD,
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
     },
   };
 
@@ -31,8 +31,8 @@ router.post("/", (req, res) => {
 
   transporter
   .sendMail({
-    from: EMAIL,
-    to: EMAIL,
+    from: process.env.EMAIL,
+    to: process.env.EMAIL,
     subject: `Message from ${userName} (${userEmail})`,
     text: userMessage
   })
