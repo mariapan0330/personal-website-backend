@@ -2,11 +2,13 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const nodemailer = require("nodemailer");
+const cors = require('cors')
 // const { EMAIL, PASSWORD } = require('./env.js')
 
 const app = express();
 const router = express.Router();
 
+app.use(cors())
 app.use(express.json())
 
 router.get("/", (req, res) => {
@@ -15,6 +17,12 @@ router.get("/", (req, res) => {
     page: "homepage from functions folder"
   });
 });
+
+router.get(`/${process.env.API_KEY}`, (req, res) => {
+  res.json({
+    page: "Your API Key worked."
+  })
+})
 
 router.post(`/${process.env.API_KEY}`, (req, res) => {
   const { userName, userEmail, userMessage } = req.body;
