@@ -12,7 +12,7 @@ app.use(express.json())
 router.get("/", (req, res) => {
   res.json({
     hello: "world",
-    page: "homepage from src folder"
+    page: "homepage from functions folder"
   });
 });
 

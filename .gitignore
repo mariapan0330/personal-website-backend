@@ -1,5 +1,5 @@
 node_modules
-functions
+functions/env.js
 src/env.js
 # Local Netlify folder
 .netlify
