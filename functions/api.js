@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post(`/${process.env.API_KEY}`, (req, res) => {
   const { userName, userEmail, userMessage } = req.body;
 
   let config = {
@@ -78,21 +78,9 @@ router.post("/", (req, res) => {
         err: err
     })
   })
-
-//   res.status(200).json({
-//     success: true,
-//     msg: 'You have submitted some data',
-//     // config: config,
-//     userName: userName,
-//     userEmail: userEmail,
-//     userMessage: userMessage
-//   });
 });
 
-app.use("/.netlify/functions/api", router);
+app.use(`/.netlify/functions/api`, router);
 
 // for the lambda to run, we need to export a handler function
 module.exports.handler = serverless(app);
-
-// "start": "netlify-lambda serve src",
-// "build": "netlify-lambda build src"
