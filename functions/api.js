@@ -8,7 +8,17 @@ const cors = require('cors')
 const app = express();
 const router = express.Router();
 
-app.use(cors())
+app.use(cors({
+  origin: function (origin, callback) {
+    // Check if the origin starts with "https://maria-panagos.netlify.app/"
+    if (origin.startsWith("https://maria-panagos.netlify.app/")) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error("Not allowed by CORS")); // Reject the request
+    }
+  }
+}))
+
 app.use(express.json())
 
 router.get("/", (req, res) => {
