@@ -9,14 +9,15 @@ const app = express();
 const router = express.Router();
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Check if the origin starts with "https://maria-panagos.netlify.app/"
-    if (origin.startsWith("https://maria-panagos.netlify.app")) {
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error("Not allowed by CORS")); // Reject the request
-    }
-  }
+  origin: [
+    "https://maria-panagos.netlify.app",
+    "https://maria-panagos.netlify.app/",
+    "https://maria-panagos.netlify.app/#home",
+    "https://maria-panagos.netlify.app/#about",
+    "https://maria-panagos.netlify.app/#projects",
+    "https://maria-panagos.netlify.app/#xp",
+    "https://maria-panagos.netlify.app/#contactme"
+  ]
 }))
 
 app.use(express.json())
